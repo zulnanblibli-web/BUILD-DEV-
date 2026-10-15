@@ -30,4 +30,6 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 
 ## Bug & solusi
 
-_(belum ada)_
+| Tanggal | Bug | Penyebab | Solusi |
+|---|---|---|---|
+| 2026-10-15 | Aplikasi tes di Gemini Canvas menampilkan gambar placeholder (bentuk ungu) dan meminta API key saat diminta generate gambar | Canvas hanya bisa memakai model Google tanpa API key; GPT Image butuh key OpenAI. Gemini membuat placeholder sendiri dan menggabung sudut jadi 1 sheet | Larang placeholder di `CANVAS_PROMPT.md`. Generate otomatis di Canvas hanya untuk Nano Banana (`CANVAS_PROMPT_GENERATE.md`). GPT Image dites manual di ChatGPT. API key tidak boleh ditaruh di Canvas |

@@ -44,6 +44,7 @@ TAMPILAN HASIL:
 
 ATURAN:
 - Jangan memanggil API gambar apa pun. Aplikasi ini hanya menghasilkan DNA dan prompt.
+- Jangan membuat gambar placeholder, SVG, bentuk, atau ilustrasi buatan sendiri untuk mewakili hasil.
 - Jangan menyimpan API key apa pun di dalam kode.
 - Jangan mengubah, meringkas, atau menerjemahkan isi SKILL.md maupun schema.
 ```
