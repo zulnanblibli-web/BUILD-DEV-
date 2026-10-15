@@ -18,6 +18,8 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 | 2026-10-15 | Pemilik produk membangun website sendiri dengan aplikasi lain. Tugas Claude: menyusun skill per tool (instruksi Bahasa Indonesia + JSON schema), satu per satu, diuji bergantian. Folder `skills/` | Arahan pemilik produk |
 | 2026-10-15 | Prompt gambar ditulis dalam bahasa Inggris (paling akurat untuk engine), teks label tetap sesuai aslinya | Skill 01 |
 | 2026-10-15 | Konsistensi pakai pola bintang: anchor dulu, semua gambar lain merujuk anchor + foto user | Skill 01 |
+| 2026-10-15 | Platform tes skill: Gemini Canvas. Engine gambar utama untuk tes: GPT Image (jadi salah satu pilihan engine, bukan satu-satunya) | Arahan pemilik produk |
+| 2026-10-15 | Skill 01 v1.1.0: aturan per engine (GPT Image: kata photorealistic sekali, rasio hanya 1:1/2:3/3:2) + schema versi Gemini | Skill 01 |
 
 ## Menunggu persetujuan
 

@@ -1,0 +1,425 @@
+{
+  "type": "OBJECT",
+  "required": [
+    "versi_skill",
+    "status",
+    "pesan_user",
+    "dna",
+    "dna_lock",
+    "prompts",
+    "qc_checklist",
+    "asumsi"
+  ],
+  "properties": {
+    "versi_skill": {
+      "type": "STRING",
+      "enum": [
+        "1.1.0"
+      ]
+    },
+    "status": {
+      "type": "STRING",
+      "enum": [
+        "ok",
+        "butuh_input",
+        "ditolak"
+      ]
+    },
+    "pesan_user": {
+      "type": "STRING"
+    },
+    "dna": {
+      "type": "OBJECT",
+      "nullable": true,
+      "required": [
+        "jenis",
+        "nama",
+        "gaya_visual",
+        "produk",
+        "karakter"
+      ],
+      "properties": {
+        "jenis": {
+          "type": "STRING",
+          "enum": [
+            "produk",
+            "karakter"
+          ]
+        },
+        "nama": {
+          "type": "STRING"
+        },
+        "gaya_visual": {
+          "type": "STRING",
+          "enum": [
+            "foto_realistis",
+            "ilustrasi_2d",
+            "render_3d",
+            "ikuti_referensi"
+          ]
+        },
+        "produk": {
+          "type": "OBJECT",
+          "nullable": true,
+          "required": [
+            "bentuk",
+            "ukuran_cm",
+            "material",
+            "kelas_permukaan",
+            "warna",
+            "teks_label",
+            "posisi_label_logo",
+            "tutup_aksesoris",
+            "ciri_unik"
+          ],
+          "properties": {
+            "bentuk": {
+              "type": "STRING"
+            },
+            "ukuran_cm": {
+              "type": "OBJECT",
+              "required": [
+                "tinggi",
+                "lebar",
+                "dalam",
+                "sumber"
+              ],
+              "properties": {
+                "tinggi": {
+                  "type": "NUMBER"
+                },
+                "lebar": {
+                  "type": "NUMBER"
+                },
+                "dalam": {
+                  "type": "NUMBER"
+                },
+                "sumber": {
+                  "type": "STRING",
+                  "enum": [
+                    "dari_user",
+                    "perkiraan_dari_foto",
+                    "perkiraan_umum"
+                  ]
+                }
+              },
+              "propertyOrdering": [
+                "tinggi",
+                "lebar",
+                "dalam",
+                "sumber"
+              ]
+            },
+            "material": {
+              "type": "ARRAY",
+              "items": {
+                "type": "OBJECT",
+                "required": [
+                  "bagian",
+                  "bahan"
+                ],
+                "properties": {
+                  "bagian": {
+                    "type": "STRING"
+                  },
+                  "bahan": {
+                    "type": "STRING"
+                  }
+                },
+                "propertyOrdering": [
+                  "bagian",
+                  "bahan"
+                ]
+              }
+            },
+            "kelas_permukaan": {
+              "type": "STRING",
+              "enum": [
+                "mengkilap",
+                "krom",
+                "logam_sikat",
+                "doff",
+                "bertekstur",
+                "berbulu",
+                "bening",
+                "translusen",
+                "gelap",
+                "terang"
+              ]
+            },
+            "warna": {
+              "type": "ARRAY",
+              "items": {
+                "type": "OBJECT",
+                "required": [
+                  "bagian",
+                  "warna",
+                  "hex"
+                ],
+                "properties": {
+                  "bagian": {
+                    "type": "STRING"
+                  },
+                  "warna": {
+                    "type": "STRING"
+                  },
+                  "hex": {
+                    "type": "STRING"
+                  }
+                },
+                "propertyOrdering": [
+                  "bagian",
+                  "warna",
+                  "hex"
+                ]
+              }
+            },
+            "teks_label": {
+              "type": "ARRAY",
+              "items": {
+                "type": "STRING"
+              }
+            },
+            "posisi_label_logo": {
+              "type": "STRING"
+            },
+            "tutup_aksesoris": {
+              "type": "STRING"
+            },
+            "ciri_unik": {
+              "type": "ARRAY",
+              "items": {
+                "type": "STRING"
+              }
+            }
+          },
+          "propertyOrdering": [
+            "bentuk",
+            "ukuran_cm",
+            "material",
+            "kelas_permukaan",
+            "warna",
+            "teks_label",
+            "posisi_label_logo",
+            "tutup_aksesoris",
+            "ciri_unik"
+          ]
+        },
+        "karakter": {
+          "type": "OBJECT",
+          "nullable": true,
+          "required": [
+            "tipe",
+            "perkiraan_usia",
+            "wajah",
+            "kulit",
+            "mata",
+            "alis",
+            "hidung",
+            "bibir",
+            "rambut",
+            "ciri_khas",
+            "proporsi_tubuh",
+            "pakaian",
+            "aksesoris"
+          ],
+          "properties": {
+            "tipe": {
+              "type": "STRING",
+              "enum": [
+                "manusia",
+                "hewan",
+                "maskot",
+                "makhluk_fiksi"
+              ]
+            },
+            "perkiraan_usia": {
+              "type": "STRING"
+            },
+            "wajah": {
+              "type": "STRING"
+            },
+            "kulit": {
+              "type": "STRING"
+            },
+            "mata": {
+              "type": "STRING"
+            },
+            "alis": {
+              "type": "STRING"
+            },
+            "hidung": {
+              "type": "STRING"
+            },
+            "bibir": {
+              "type": "STRING"
+            },
+            "rambut": {
+              "type": "STRING"
+            },
+            "ciri_khas": {
+              "type": "ARRAY",
+              "items": {
+                "type": "STRING"
+              }
+            },
+            "proporsi_tubuh": {
+              "type": "STRING"
+            },
+            "pakaian": {
+              "type": "ARRAY",
+              "items": {
+                "type": "STRING"
+              }
+            },
+            "aksesoris": {
+              "type": "ARRAY",
+              "items": {
+                "type": "STRING"
+              }
+            }
+          },
+          "propertyOrdering": [
+            "tipe",
+            "perkiraan_usia",
+            "wajah",
+            "kulit",
+            "mata",
+            "alis",
+            "hidung",
+            "bibir",
+            "rambut",
+            "ciri_khas",
+            "proporsi_tubuh",
+            "pakaian",
+            "aksesoris"
+          ]
+        }
+      },
+      "propertyOrdering": [
+        "jenis",
+        "nama",
+        "gaya_visual",
+        "produk",
+        "karakter"
+      ]
+    },
+    "dna_lock": {
+      "type": "STRING"
+    },
+    "prompts": {
+      "type": "ARRAY",
+      "maxItems": 7,
+      "items": {
+        "type": "OBJECT",
+        "required": [
+          "urutan",
+          "id",
+          "tujuan",
+          "vonis",
+          "prompt",
+          "negative_prompt",
+          "referensi",
+          "rasio",
+          "risiko"
+        ],
+        "properties": {
+          "urutan": {
+            "type": "INTEGER",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "id": {
+            "type": "STRING",
+            "enum": [
+              "anchor",
+              "sudut_3_4",
+              "sudut_depan",
+              "sudut_samping",
+              "sudut_belakang",
+              "ekspresi_senyum",
+              "ekspresi_kaget",
+              "ekspresi_serius",
+              "packshot_putih",
+              "lifestyle"
+            ]
+          },
+          "tujuan": {
+            "type": "STRING"
+          },
+          "vonis": {
+            "type": "STRING",
+            "enum": [
+              "LANGSUNG",
+              "TURUNAN",
+              "KARANG"
+            ]
+          },
+          "prompt": {
+            "type": "STRING"
+          },
+          "negative_prompt": {
+            "type": "STRING"
+          },
+          "referensi": {
+            "type": "ARRAY",
+            "items": {
+              "type": "STRING",
+              "enum": [
+                "foto_user_1",
+                "foto_user_2",
+                "foto_user_3",
+                "foto_user_4",
+                "hasil:anchor"
+              ]
+            }
+          },
+          "rasio": {
+            "type": "STRING",
+            "enum": [
+              "1:1",
+              "2:3",
+              "4:5"
+            ]
+          },
+          "risiko": {
+            "type": "STRING"
+          }
+        },
+        "propertyOrdering": [
+          "urutan",
+          "id",
+          "tujuan",
+          "vonis",
+          "prompt",
+          "negative_prompt",
+          "referensi",
+          "rasio",
+          "risiko"
+        ]
+      }
+    },
+    "qc_checklist": {
+      "type": "ARRAY",
+      "items": {
+        "type": "STRING"
+      }
+    },
+    "asumsi": {
+      "type": "ARRAY",
+      "items": {
+        "type": "STRING"
+      }
+    }
+  },
+  "propertyOrdering": [
+    "versi_skill",
+    "status",
+    "pesan_user",
+    "dna",
+    "dna_lock",
+    "prompts",
+    "qc_checklist",
+    "asumsi"
+  ]
+}

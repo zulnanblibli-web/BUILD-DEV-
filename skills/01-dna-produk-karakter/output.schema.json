@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["versi_skill", "status", "pesan_user", "dna", "dna_lock", "prompts", "qc_checklist", "asumsi"],
   "properties": {
-    "versi_skill": { "type": "string", "const": "1.0.0" },
+    "versi_skill": { "type": "string", "const": "1.1.0" },
     "status": { "type": "string", "enum": ["ok", "butuh_input", "ditolak"] },
     "pesan_user": { "type": "string" },
     "dna": {

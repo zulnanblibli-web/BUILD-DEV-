@@ -12,11 +12,17 @@ Setiap folder = satu skill untuk satu tool. Dibuat satu per satu, dites, baru la
 |---|---|
 | `SKILL.md` | Instruksi untuk AI (system prompt). Ditempel utuh di kolom instruksi platform |
 | `input.schema.json` | Daftar isian form yang dikirim ke AI |
-| `output.schema.json` | Bentuk jawaban AI. Pasang di fitur "structured output" atau "JSON schema" jika platform menyediakannya |
+| `output.schema.json` | Bentuk jawaban AI (standar JSON Schema). Untuk platform umum dan untuk website versi sendiri nanti |
+| `output.schema.gemini.json` | Versi khusus Gemini (Canvas / Gemini API `responseSchema`). **Ini yang dipakai di Gemini Canvas** |
+| `CANVAS_PROMPT.md` | Prompt siap tempel untuk membuat aplikasi tes di Gemini Canvas |
 | `contoh-input-*.json` | Contoh isian form |
 | `contoh-output-*.json` | Contoh jawaban yang benar. Pakai sebagai pembanding saat tes |
 
-## Cara pakai (skill 01)
+## Cara pakai di Gemini Canvas
+
+Ikuti `01-dna-produk-karakter/CANVAS_PROMPT.md`. File yang dilampirkan ke Canvas hanya 2: `SKILL.md` dan `output.schema.gemini.json`.
+
+## Cara pakai di platform lain (skill 01)
 
 1. Buat 1 asisten AI yang **bisa membaca gambar** di platform pilihanmu.
 2. Tempel seluruh isi `SKILL.md` di kolom instruksi.

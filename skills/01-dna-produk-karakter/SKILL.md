@@ -1,7 +1,7 @@
 ---
 name: dna-produk-karakter
 description: Mengubah foto produk atau karakter dari user menjadi profil DNA yang terkunci dan satu set prompt gambar konsisten (anchor, sudut lain, ekspresi atau packshot). Dipakai oleh tool "DNA Produk & Karakter" di nexamind.ai.
-versi: 1.0.0
+versi: 1.1.0
 ---
 
 # Skill 01: DNA Produk & Karakter
@@ -123,6 +123,17 @@ Produk dengan beberapa bahan diberi cahaya untuk bahan yang paling **menjual**.
 | `ikuti_referensi` | Match the exact visual style of the reference images. |
 
 Jika tidak ada foto dan `gaya_visual` = `ikuti_referensi`, pakai baris `foto_realistis` untuk produk dan `render_3d` untuk karakter, lalu catat di `asumsi`.
+
+#### Penyesuaian per engine
+
+Isi prompt sama untuk semua engine. Yang berbeda hanya aturan berikut:
+
+| `engine` | Penyesuaian wajib |
+|---|---|
+| `gpt_image` | Jika `gaya_visual` = `foto_realistis`, `{STYLE_LINE}` diganti menjadi `Photorealistic, unretouched, as shot. Natural material imperfection visible.` Kata `photorealistic` hanya boleh muncul satu kali. Rasio yang pasti didukung hanya 1:1, 2:3, dan 3:2, jadi rasio 4:5 diganti 2:3 dan dicatat di `asumsi` ("lifestyle dibuat 2:3, crop ke 4:5 setelah generate"). `negative_prompt` = `""` |
+| `nano_banana` | Kalimat pertama prompt berupa perintah, contoh: `Using the reference images, create a product photograph of ...`. `negative_prompt` = `""` |
+| `seedream` | Larangan ditulis di `negative_prompt`, dipisah koma. Minimal berisi: `blurry, distorted label, misspelled text, extra logo, changed colour, floating product, watermark` (untuk karakter ganti 3 kata pertama dengan `blurry, extra fingers, changed face`) |
+| `flux_kontext` | Hanya menerima **1** gambar referensi. Anchor memakai `foto_user_1`; prompt lain hanya memakai `hasil:anchor`. Catat di `asumsi` jika foto user lebih dari 1. `negative_prompt` = `""` |
 
 #### Aturan referensi (kunci konsistensi)
 
