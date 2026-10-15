@@ -14,7 +14,12 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 | 2026-10-15 | Suno **tidak** dipakai (tidak ada API publik resmi) | Verifikasi lisensi |
 | 2026-10-15 | BRIA RMBG 2.0 versi open-weights **tidak** dipakai (CC BY-NC) | Verifikasi lisensi |
 
+| 2026-10-15 | **Setiap menu = generator mandiri** (input → generate → hasil). Alur antar tool hanya pintasan opsional ("Pakai DNA", "Kirim ke…") | Koreksi pemilik produk |
+| 2026-10-15 | DNA Produk & Karakter: input upload foto/teks → output sheet konsisten multi-sudut + profil tersimpan | Koreksi pemilik produk |
+
 ## Menunggu persetujuan
+
+- Alur video multi-scene (draft 480p, review per klip, gabung otomatis): tetap ada di Studio Animasi/Storyboard, atau dihapus?
 
 - Stack: Vercel Pro + Supabase + Cloudflare R2 + Trigger.dev + Upstash
 - Pilihan model per tool (lihat tabel verifikasi di rencana build)

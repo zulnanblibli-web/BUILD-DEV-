@@ -68,8 +68,7 @@ Tanggal: 2026-10-15
 | `fx_rates` | kurs USD/IDR harian (untuk laporan margin, tidak mengubah harga kredit) |
 | `admin_spend_daily` | biaya modal admin per hari (batas Rp150.000) |
 | `dna_profiles` | DNA Produk & Karakter: nama, deskripsi, atribut, aset referensi |
-| `projects` | wadah kerja: judul, rasio, status, langkah terakhir |
-| `scenes` | per project: urutan, prompt JSON, durasi, referensi, klip draft, klip final, status setuju |
+| `projects` | (opsional) folder pengelompokan hasil; tidak wajib untuk generate |
 | `jobs` | setiap generate: tool, model, input, status, kredit di-hold, id job provider, kode error |
 | `assets` | semua file: jenis, lokasi R2, ukuran, durasi, asal job, induk aset, masa simpan |
 | `notifications`, `referrals`, `moderation_logs`, `audit_logs` | pendukung |
@@ -78,58 +77,62 @@ Semua tabel milik user dilindungi RLS (user hanya bisa membaca datanya sendiri).
 
 ---
 
-## 3. Alur data antar tools
+## 3. Prinsip: setiap menu = generator mandiri (revisi 2026-10-15)
 
-```
-DNA Produk/Karakter ─────────────┐ (referensi otomatis ke semua tool gambar & video)
-                                 ▼
-Ide Konten → Storyboard → Buat Gambar → Buat Video → Voice Over → Gabung Video → Export
-                 ▲                          ▲   ▲
-Vision Prompt ───┴──────────────────────────┘   └── Motion Control (opsional per klip)
-```
+Setiap menu bisa langsung dipakai sendiri: **isi input → klik Generate → hasil jadi.**
+Tidak ada alur bertahap yang wajib. Fitur penghubung hanya **pintasan opsional**:
+- Dropdown **"Pakai DNA"** (opsional) di tool gambar & video, agar karakter/produk tetap konsisten.
+- Tombol **"Kirim ke…"** (opsional) di kartu hasil, untuk memakai hasil di tool lain tanpa unduh-unggah.
 
-- Semua hasil = `asset` yang terikat ke `project`. Tombol **"Pakai di…"** di kartu hasil mengirim aset ke tool lain tanpa unduh/unggah ulang.
-- Project menyimpan langkah terakhir, jadi user bisa menutup halaman dan melanjutkan nanti.
+### Spesifikasi input → output per tool
+
+| Menu | Input user | Output |
+|---|---|---|
+| **DNA Produk & Karakter** | Upload 1–4 foto produk/karakter **atau** deskripsi teks; jenis (produk/karakter); gaya | Sheet konsisten. Karakter: 4 sudut (depan, samping, belakang, 3/4) + 3 ekspresi. Produk: 4 sudut + packshot latar putih + 1 foto lifestyle. Tersimpan sebagai profil DNA |
+| Buat Gambar | Prompt, opsional foto referensi, gaya, rasio, jumlah (1–4) | 1–4 gambar |
+| Buat Mascot | Deskripsi atau upload logo/foto, gaya (3D, kartun, chibi, flat) | Mascot + 3 pose |
+| Buat Banner | Foto produk, judul, teks promo, ukuran (Feed, Story, marketplace) | Banner siap pakai |
+| Virtual Try On | Foto orang + foto pakaian | Foto orang memakai pakaian tersebut |
+| Extract Image | Foto + nama objek yang diambil | Objek PNG transparan |
+| Design PRO | Foto produk, nama, harga, gaya | Materi jualan (poster/katalog/feed) |
+| Remove Background | Foto | PNG transparan |
+| Upscale | Foto + 2x/4x | Foto resolusi tinggi |
+| Buat Video | Prompt, opsional gambar awal (dan akhir), durasi, rasio, model | 1 klip video |
+| Motion Control | Foto karakter + video gerakan referensi | Video karakter meniru gerakan |
+| Vision Prompt | Upload gambar/video | Prompt siap pakai (tombol salin / kirim ke Buat Gambar/Video) |
+| Gabung Video | Upload/pilih beberapa klip, opsional audio & subtitle | 1 file MP4 |
+| Ide Konten | Niche/produk, platform | Daftar ide + hook |
+| Storyboard | Brief/ide, jumlah scene, jenis (UGC/animasi) | Daftar scene + prompt per scene (+ opsional gambar per scene) |
+| Studio Animasi | Karakter (upload/DNA) + cerita singkat | Klip animasi |
+| Script Voice Over | Topik/produk, durasi, gaya bahasa | Naskah VO |
+| Product Finder | Kategori/kata kunci | Rekomendasi produk + alasan (analisis AI) |
+| Campaign Blueprint | Produk + target | Rencana kampanye |
+| Promo Planner | Produk + periode | Kalender promo |
+| Music | Mood, genre, durasi | Track musik |
+| Text to Speech | Naskah + pilihan suara | File audio |
+
+Semua tool memakai komponen yang sama: form sederhana → biaya kredit di dekat tombol → kartu hasil → tersimpan otomatis di Riwayat.
 
 ---
 
-## 4. Diagram alur video end-to-end
+## 4. Alur generate (berlaku untuk semua tool)
 
 ```
-[Project] DNA + Storyboard + Gambar + Prompt JSON (otomatis dari tool sebelumnya)
-   │
+Isi form ─► Biaya kredit tampil di dekat tombol
+   ▼ klik Generate
+Server: validasi + moderasi + HOLD kredit (atomik)
    ▼
-① Pecah scene: 1 scene = 1 klip → user bisa edit prompt JSON tiap scene
-   │
+Antrean: menunggu → diproses → selesai / gagal
+   │                              │
+   ▼                              ▼
+Kredit dipotong (capture)    Kredit dikembalikan otomatis + pesan error yang mudah dipahami
    ▼
-② Estimasi biaya semua scene ──► [Konfirmasi?] ──tidak──► berhenti, 0 kredit
-   │ ya → kredit di-HOLD (dicadangkan, belum terpotong)
+Kartu hasil: unduh | generate ulang (biaya tampil) | Kirim ke… (opsional) | simpan sebagai DNA
    ▼
-③ DRAFT 480p semua scene → antrean
-   │   status per klip: menunggu → diproses → selesai / gagal (hold dilepas otomatis)
-   │   user boleh menutup halaman; hasil tetap tersimpan
-   ▼
-④ Review per klip:  ✔ setujui | ↻ regenerate (tampil biaya) | ✎ edit prompt lalu ulang
-   │
-   ▼
-⑤ FINAL (720p/1080p) klip yang disetujui → estimasi + konfirmasi lagi
-   │   frame terakhir klip N → gambar awal klip N+1 (jika model mendukung)
-   │
-   ├──► (opsional) Motion Control per klip → menggantikan klip setelah disetujui
-   ▼
-⑥ Voice Over dari script → bandingkan durasi VO vs video (peringatan jika selisih > 10%)
-   ▼
-⑦ Gabung (FFmpeg di worker): klip + VO + musik + subtitle → PREVIEW wajib
-   ▼
-⑧ Export 9:16 (utama) / 1:1 / 16:9 → MP4 di R2 → Riwayat project (masa simpan jelas)
-
-Semua error ditampilkan dalam bahasa user, mis. "Video gagal dibuat karena prompt
-mengandung konten yang dilarang. Kredit kamu sudah dikembalikan."
+Tersimpan di Riwayat (filter jenis & tanggal, unduh ulang, masa simpan jelas)
 ```
 
-Catatan teknis:
-- Veo tidak menyediakan 480p, jadi draft 480p memakai Seedance (Mini/Fast). Draft = cek komposisi; hasil final bisa sedikit berbeda jika modelnya beda.
-- Kredit: hold saat konfirmasi → capture per klip yang sukses → release otomatis untuk klip gagal.
+Catatan: alur video multi-scene (draft 480p → review per klip → final → VO → gabung) dari brief awal **ditunda/menunggu keputusan** — lihat pertanyaan di catatan keputusan.
 
 ---
 
@@ -140,13 +143,13 @@ Urutan mengikuti usulan pemilik produk, dengan satu penyesuaian: **fondasi (lapi
 | Fase | Isi | Hasil yang bisa dites |
 |---|---|---|
 | 1 | Auth, membership, kredit (hold/capture/refund), top-up Lynk.id, dashboard kosong, admin + 2FA, fondasi | Daftar, bayar (sandbox), saldo bertambah, admin login 2FA |
-| 2 | Buat Gambar + DNA Produk & Karakter | Generate gambar memakai DNA, kredit terpotong benar |
-| 3 | Remove BG, Upscale, Extract | 3 tool memakai form & kartu hasil yang sama |
-| 4 | Ide Konten, Storyboard, Script VO | Storyboard tersimpan di project |
-| 5 | Buat Video + draft + antrean | Alur ①–⑤ |
-| 6 | Motion Control + Vision Prompt | Klip diganti, prompt terisi otomatis |
-| 7 | TTS + Music | Alur ⑥ |
-| 8 | Gabung Video + export | Alur ⑦–⑧ |
+| 2 | DNA Produk & Karakter + Buat Gambar + Mascot + Banner | Upload foto → sheet konsisten; generate gambar dengan/tanpa DNA |
+| 3 | Remove BG, Upscale, Extract, Virtual Try On, Design PRO | Semua tool memakai form & kartu hasil yang sama |
+| 4 | Ide Konten, Storyboard, Script VO | Masing-masing generate langsung |
+| 5 | Buat Video (1 klip, langsung generate) | Prompt/gambar → klip |
+| 6 | Motion Control + Vision Prompt + Studio Animasi | Masing-masing generate langsung |
+| 7 | TTS + Music | Naskah → audio, mood → musik |
+| 8 | Gabung Video + export | Upload klip → MP4 9:16/1:1/16:9 |
 | 9 | Affiliate tools | Product Finder, Campaign Blueprint, Promo Planner |
 | 10 | Asisten AI, Referral, penyempurnaan | — |
 
@@ -159,7 +162,7 @@ Urutan mengikuti usulan pemilik produk, dengan satu penyesuaian: **fondasi (lapi
 3. **Sistem antrean** — tabel `jobs` + task Trigger.dev + status live via Supabase Realtime + refund otomatis saat gagal.
 4. **Storage** — upload/unduh langsung ke R2, registri aset, pembersihan otomatis saat masa simpan habis.
 5. **Registri tool** — satu file konfigurasi per tool (isian, pilihan gaya, model, biaya) → halaman tool terbentuk otomatis.
-6. **Komponen UI** — AppShell (sidebar + header + pil saldo), GenerateForm, ResultCard (dengan "Pakai di…"), JobStatus, CostBadge, ConfirmCostDialog, EmptyState, 3 tema gelap.
+6. **Komponen UI** — AppShell (sidebar + header + pil saldo), GenerateForm, ResultCard (dengan "Kirim ke…" opsional), JobStatus, CostBadge, ConfirmCostDialog, EmptyState, 3 tema gelap.
 7. **Pengaman** — validasi input (zod), rate limit, moderasi prompt, audit log.
 
 ---
