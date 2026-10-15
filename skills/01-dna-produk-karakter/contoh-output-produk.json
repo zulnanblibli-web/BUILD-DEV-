@@ -1,0 +1,178 @@
+{
+  "versi_skill": "1.0.0",
+  "status": "ok",
+  "pesan_user": "DNA \"Kopi Senja\" siap. 6 gambar akan dibuat. Catatan: bagian belakang botol tidak ada di foto, jadi tampak belakang hasilnya bisa berbeda dari aslinya. Upload foto belakang supaya lebih akurat.",
+  "dna": {
+    "jenis": "produk",
+    "nama": "Kopi Senja",
+    "gaya_visual": "foto_realistis",
+    "produk": {
+      "bentuk": "Botol kaca silinder lurus, bahu membulat, leher pendek",
+      "ukuran_cm": {
+        "tinggi": 18,
+        "lebar": 6,
+        "dalam": 6,
+        "sumber": "dari_user"
+      },
+      "material": [
+        {
+          "bagian": "badan botol",
+          "bahan": "kaca bening"
+        },
+        {
+          "bagian": "tutup",
+          "bahan": "logam doff"
+        },
+        {
+          "bagian": "label",
+          "bahan": "kertas doff"
+        }
+      ],
+      "kelas_permukaan": "mengkilap",
+      "warna": [
+        {
+          "bagian": "isi kopi",
+          "warna": "light caramel brown",
+          "hex": "#B07A4F"
+        },
+        {
+          "bagian": "tutup",
+          "warna": "matte black",
+          "hex": "#1A1A1A"
+        },
+        {
+          "bagian": "label",
+          "warna": "cream",
+          "hex": "#F2E6CF"
+        },
+        {
+          "bagian": "teks utama",
+          "warna": "dark brown",
+          "hex": "#4A2C1A"
+        },
+        {
+          "bagian": "ikon matahari",
+          "warna": "orange",
+          "hex": "#E07A2E"
+        }
+      ],
+      "teks_label": [
+        "KOPI SENJA",
+        "Kopi Susu Gula Aren",
+        "250 ml"
+      ],
+      "posisi_label_logo": "Label melingkar di sepertiga tengah badan botol. Depan label: \"KOPI SENJA\" di tengah, ikon setengah matahari di bawahnya, \"Kopi Susu Gula Aren\" di bawah ikon, \"250 ml\" di kanan bawah.",
+      "tutup_aksesoris": "Tutup ulir logam hitam doff dengan gerigi vertikal halus",
+      "ciri_unik": [
+        "Ikon setengah matahari bergaris warna oranye",
+        "Isi kopi berhenti 2 cm di bawah leher botol"
+      ]
+    },
+    "karakter": null
+  },
+  "dna_lock": "A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front.",
+  "prompts": [
+    {
+      "urutan": 1,
+      "id": "anchor",
+      "tujuan": "Kartu identitas produk, acuan semua gambar lain",
+      "vonis": "TURUNAN",
+      "prompt": "Product photograph of a bottled iced milk coffee. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. Product exactly as the reference. Label sharp, correctly spelled and unaltered, reading exactly \"KOPI SENJA\", \"Kopi Susu Gula Aren\" and \"250 ml\". Keep the shape, colour, proportion, typography and logo identical to the reference. It stands on a flat mid grey surface in front of a flat mid grey background at roughly fifty percent luminance, lit evenly edge to edge with no gradient, no vignette and no visible seam. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. A very large soft source close to it, so the reflection across the glass reads as one clean gradient rather than a bright dot. Every light in this frame comes from that single source at camera left. 100 mm lens at f/11, about 1 m from the product, 35 degrees around from the front towards its right side, lens slightly above the middle of the bottle. The entire bottle is inside the depth of field and sharp from front to back. Square 1:1 frame with the bottle centred and a comfortable margin on all sides. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "foto_user_1",
+        "foto_user_2"
+      ],
+      "rasio": "1:1",
+      "risiko": "Sudut tiga perempat tidak ada persis di foto, digabung dari foto depan dan samping."
+    },
+    {
+      "urutan": 2,
+      "id": "sudut_depan",
+      "tujuan": "Tampak depan lurus",
+      "vonis": "LANGSUNG",
+      "prompt": "Product photograph of a bottled iced milk coffee, seen straight from the front. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. Product exactly as the reference. Label sharp, correctly spelled and unaltered, reading exactly \"KOPI SENJA\", \"Kopi Susu Gula Aren\" and \"250 ml\". Keep the shape, colour, proportion, typography and logo identical to the reference. It stands on a flat mid grey surface in front of a flat mid grey background at roughly fifty percent luminance, lit evenly edge to edge with no gradient, no vignette and no visible seam. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. A very large soft source close to it, so the reflection across the glass reads as one clean gradient rather than a bright dot. Every light in this frame comes from that single source at camera left. 100 mm lens at f/11, about 1 m from the product, dead level with the middle of the bottle, the label front facing the camera squarely and centred. The entire bottle is inside the depth of field and sharp from front to back. Square 1:1 frame. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "hasil:anchor",
+        "foto_user_1",
+        "foto_user_2"
+      ],
+      "rasio": "1:1",
+      "risiko": ""
+    },
+    {
+      "urutan": 3,
+      "id": "sudut_samping",
+      "tujuan": "Tampak samping kanan",
+      "vonis": "LANGSUNG",
+      "prompt": "Product photograph of a bottled iced milk coffee, seen exactly from its right side. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. Product exactly as the reference. Label sharp, correctly spelled and unaltered, reading exactly \"KOPI SENJA\", \"Kopi Susu Gula Aren\" and \"250 ml\". Keep the shape, colour, proportion, typography and logo identical to the reference. It stands on a flat mid grey surface in front of a flat mid grey background at roughly fifty percent luminance, lit evenly edge to edge with no gradient, no vignette and no visible seam. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. A very large soft source close to it, so the reflection across the glass reads as one clean gradient rather than a bright dot. Every light in this frame comes from that single source at camera left. 100 mm lens at f/11, about 1 m from the product, 90 degrees around from the front, dead level with the middle of the bottle, so the label wraps around the edge and the front text is only partly visible. The entire bottle is inside the depth of field and sharp from front to back. Square 1:1 frame. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "hasil:anchor",
+        "foto_user_1",
+        "foto_user_2"
+      ],
+      "rasio": "1:1",
+      "risiko": ""
+    },
+    {
+      "urutan": 4,
+      "id": "sudut_belakang",
+      "tujuan": "Tampak belakang",
+      "vonis": "KARANG",
+      "prompt": "Product photograph of a bottled iced milk coffee, seen exactly from the back. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. The back of the label is the same plain matte cream paper (#F2E6CF) as the front, with the paper ends meeting in a thin vertical overlap seam at the centre. Keep the shape, cap, colours and proportions identical to the reference. It stands on a flat mid grey surface in front of a flat mid grey background at roughly fifty percent luminance, lit evenly edge to edge with no gradient, no vignette and no visible seam. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. A very large soft source close to it, so the reflection across the glass reads as one clean gradient rather than a bright dot. Every light in this frame comes from that single source at camera left. 100 mm lens at f/11, about 1 m from the product, 180 degrees around from the front, dead level with the middle of the bottle. The entire bottle is inside the depth of field and sharp from front to back. Square 1:1 frame. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "hasil:anchor",
+        "foto_user_1",
+        "foto_user_2"
+      ],
+      "rasio": "1:1",
+      "risiko": "Bagian belakang tidak ada di foto. Isi label belakang dikarang sebagai kertas polos, bisa berbeda dari aslinya."
+    },
+    {
+      "urutan": 5,
+      "id": "packshot_putih",
+      "tujuan": "Foto utama marketplace",
+      "vonis": "LANGSUNG",
+      "prompt": "Product photograph of a bottled iced milk coffee for an online store listing, seen straight from the front. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. Product exactly as the reference. Label sharp, correctly spelled and unaltered, reading exactly \"KOPI SENJA\", \"Kopi Susu Gula Aren\" and \"250 ml\". Keep the shape, colour, proportion, typography and logo identical to the reference. It stands on a pure white seamless background, the product holds full detail at its edges and never blends into the white. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. A very large soft source close to it, so the reflection across the glass reads as one clean gradient rather than a bright dot. Every light in this frame comes from that single source at camera left. 100 mm lens at f/11, about 1 m from the product, dead level with the middle of the bottle, label front centred. The entire bottle is inside the depth of field and sharp from front to back. Square 1:1 frame, the bottle filling about seventy percent of the frame height. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "hasil:anchor",
+        "foto_user_1",
+        "foto_user_2"
+      ],
+      "rasio": "1:1",
+      "risiko": ""
+    },
+    {
+      "urutan": 6,
+      "id": "lifestyle",
+      "tujuan": "Produk dalam konteks pemakaian",
+      "vonis": "TURUNAN",
+      "prompt": "Photograph of a bottled iced milk coffee on a light oak cafe table by a window in late morning. Use the reference images only for the identity of the product: shape, proportions, colours, materials and markings. Do not transfer lighting, background or colour grade from any reference. Lighting and background come from this prompt. A 250 ml glass bottle of iced milk coffee named KOPI SENJA, 18 cm tall and 6 cm wide, a straight cylindrical body with rounded shoulders narrowing to a short neck. The glass is clear and the coffee inside is an opaque light caramel brown (#B07A4F), filled to 2 cm below the neck. A matte black metal screw cap (#1A1A1A) with fine vertical ridges around its edge. A wraparound matte cream paper label (#F2E6CF) covers the middle third of the body. On the front of the label, centred, the words \"KOPI SENJA\" in bold dark brown (#4A2C1A) serif capitals, beneath it a small orange (#E07A2E) half sun line icon, below that \"Kopi Susu Gula Aren\" in smaller dark brown sans serif letters, and \"250 ml\" in small letters at the bottom right of the label front. Product exactly as the reference. Label sharp, correctly spelled and unaltered, reading exactly \"KOPI SENJA\", \"Kopi Susu Gula Aren\" and \"250 ml\". Keep the shape, colour, proportion, typography and logo identical to the reference. A hand with natural uneven skin tone rests its fingertips lightly on the cap, showing the real size of the bottle. A few condensation droplets sit on the glass below the label, each with a tiny bright highlight and a soft shadow beneath. A soft contact shadow sits directly beneath it where it meets the surface, darkest at the contact point and opening out from there. Every light in this frame comes from the window at camera left, soft daylight that leaves a gentle gradient across the glass. 85 mm lens at f/8, about 80 cm from the product, 30 degrees around from the front, lens slightly above the middle of the bottle. The bottle and the hand are both sharp, the cafe behind stays readable. Vertical 4:5 frame. The product is 18 cm tall, keep this realistic scale. Unretouched, as shot. Natural material imperfection visible.",
+      "negative_prompt": "",
+      "referensi": [
+        "hasil:anchor",
+        "foto_user_1"
+      ],
+      "rasio": "4:5",
+      "risiko": "Latar dan tangan dibuat baru oleh AI."
+    }
+  ],
+  "qc_checklist": [
+    "Teks label terbaca persis \"KOPI SENJA\", \"Kopi Susu Gula Aren\", \"250 ml\", tanpa huruf tambahan atau hilang",
+    "Ikon setengah matahari oranye ada tepat di bawah \"KOPI SENJA\"",
+    "Tutup hitam doff bergerigi, bukan tutup mengkilap atau warna lain",
+    "Warna isi kopi karamel muda dan tinggi isi 2 cm di bawah leher",
+    "Proporsi tinggi banding lebar botol kurang lebih 3:1, sama dengan anchor",
+    "Ada bayangan kontak di bawah botol, botol tidak terlihat melayang",
+    "Latar abu-abu rata tanpa gradasi pada gambar 1 sampai 4, putih bersih pada packshot",
+    "Pada lifestyle: tangan punya 5 jari dan ukuran botol wajar dibanding tangan"
+  ],
+  "asumsi": [
+    "Kelas permukaan dipilih \"mengkilap\" karena kaca botol yang paling menentukan tampilan, bukan labelnya",
+    "Label bagian belakang diasumsikan polos karena tidak terlihat di foto"
+  ]
+}

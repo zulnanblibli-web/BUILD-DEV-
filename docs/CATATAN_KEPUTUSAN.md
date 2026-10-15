@@ -15,6 +15,9 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 | 2026-10-15 | BRIA RMBG 2.0 versi open-weights **tidak** dipakai (CC BY-NC) | Verifikasi lisensi |
 | 2026-10-15 | **Setiap menu = generator mandiri** (input → generate → hasil). Alur antar tool hanya pintasan opsional ("Pakai DNA", "Kirim ke…") | Koreksi pemilik produk |
 | 2026-10-15 | DNA Produk & Karakter: input upload foto/teks → output sheet konsisten multi-sudut + profil tersimpan | Koreksi pemilik produk |
+| 2026-10-15 | Pemilik produk membangun website sendiri dengan aplikasi lain. Tugas Claude: menyusun skill per tool (instruksi Bahasa Indonesia + JSON schema), satu per satu, diuji bergantian. Folder `skills/` | Arahan pemilik produk |
+| 2026-10-15 | Prompt gambar ditulis dalam bahasa Inggris (paling akurat untuk engine), teks label tetap sesuai aslinya | Skill 01 |
+| 2026-10-15 | Konsistensi pakai pola bintang: anchor dulu, semua gambar lain merujuk anchor + foto user | Skill 01 |
 
 ## Menunggu persetujuan
 

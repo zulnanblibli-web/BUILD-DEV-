@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nexamind/skills/01-dna-produk-karakter/input",
+  "title": "Input DNA Produk & Karakter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["jenis", "nama", "gaya_visual", "engine", "jumlah_foto"],
+  "properties": {
+    "jenis": { "type": "string", "enum": ["produk", "karakter"] },
+    "nama": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "deskripsi": { "type": "string", "maxLength": 1000, "default": "" },
+    "gaya_visual": {
+      "type": "string",
+      "enum": ["foto_realistis", "ilustrasi_2d", "render_3d", "ikuti_referensi"],
+      "default": "ikuti_referensi"
+    },
+    "engine": {
+      "type": "string",
+      "enum": ["nano_banana", "gpt_image", "seedream", "flux_kontext"]
+    },
+    "jumlah_foto": { "type": "integer", "minimum": 0, "maximum": 4 },
+    "ukuran_asli_cm": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "tinggi": { "type": "number", "exclusiveMinimum": 0 },
+        "lebar": { "type": "number", "exclusiveMinimum": 0 },
+        "dalam": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "default": null
+    },
+    "teks_label_manual": { "type": "string", "maxLength": 500, "default": "" }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nexamind/skills/01-dna-produk-karakter/output",
+  "title": "Output DNA Produk & Karakter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["versi_skill", "status", "pesan_user", "dna", "dna_lock", "prompts", "qc_checklist", "asumsi"],
+  "properties": {
+    "versi_skill": { "type": "string", "const": "1.0.0" },
+    "status": { "type": "string", "enum": ["ok", "butuh_input", "ditolak"] },
+    "pesan_user": { "type": "string" },
+    "dna": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["jenis", "nama", "gaya_visual", "produk", "karakter"],
+      "properties": {
+        "jenis": { "type": "string", "enum": ["produk", "karakter"] },
+        "nama": { "type": "string" },
+        "gaya_visual": { "type": "string", "enum": ["foto_realistis", "ilustrasi_2d", "render_3d", "ikuti_referensi"] },
+        "produk": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["bentuk", "ukuran_cm", "material", "kelas_permukaan", "warna", "teks_label", "posisi_label_logo", "tutup_aksesoris", "ciri_unik"],
+          "properties": {
+            "bentuk": { "type": "string" },
+            "ukuran_cm": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["tinggi", "lebar", "dalam", "sumber"],
+              "properties": {
+                "tinggi": { "type": "number" },
+                "lebar": { "type": "number" },
+                "dalam": { "type": "number" },
+                "sumber": { "type": "string", "enum": ["dari_user", "perkiraan_dari_foto", "perkiraan_umum"] }
+              }
+            },
+            "material": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bagian", "bahan"],
+                "properties": { "bagian": { "type": "string" }, "bahan": { "type": "string" } }
+              }
+            },
+            "kelas_permukaan": {
+              "type": "string",
+              "enum": ["mengkilap", "krom", "logam_sikat", "doff", "bertekstur", "berbulu", "bening", "translusen", "gelap", "terang"]
+            },
+            "warna": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bagian", "warna", "hex"],
+                "properties": {
+                  "bagian": { "type": "string" },
+                  "warna": { "type": "string" },
+                  "hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+                }
+              }
+            },
+            "teks_label": { "type": "array", "items": { "type": "string" } },
+            "posisi_label_logo": { "type": "string" },
+            "tutup_aksesoris": { "type": "string" },
+            "ciri_unik": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "karakter": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["tipe", "perkiraan_usia", "wajah", "kulit", "mata", "alis", "hidung", "bibir", "rambut", "ciri_khas", "proporsi_tubuh", "pakaian", "aksesoris"],
+          "properties": {
+            "tipe": { "type": "string", "enum": ["manusia", "hewan", "maskot", "makhluk_fiksi"] },
+            "perkiraan_usia": { "type": "string" },
+            "wajah": { "type": "string" },
+            "kulit": { "type": "string" },
+            "mata": { "type": "string" },
+            "alis": { "type": "string" },
+            "hidung": { "type": "string" },
+            "bibir": { "type": "string" },
+            "rambut": { "type": "string" },
+            "ciri_khas": { "type": "array", "items": { "type": "string" } },
+            "proporsi_tubuh": { "type": "string" },
+            "pakaian": { "type": "array", "items": { "type": "string" } },
+            "aksesoris": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "dna_lock": { "type": "string" },
+    "prompts": {
+      "type": "array",
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["urutan", "id", "tujuan", "vonis", "prompt", "negative_prompt", "referensi", "rasio", "risiko"],
+        "properties": {
+          "urutan": { "type": "integer", "minimum": 1, "maximum": 7 },
+          "id": {
+            "type": "string",
+            "enum": ["anchor", "sudut_3_4", "sudut_depan", "sudut_samping", "sudut_belakang", "ekspresi_senyum", "ekspresi_kaget", "ekspresi_serius", "packshot_putih", "lifestyle"]
+          },
+          "tujuan": { "type": "string" },
+          "vonis": { "type": "string", "enum": ["LANGSUNG", "TURUNAN", "KARANG"] },
+          "prompt": { "type": "string", "minLength": 50 },
+          "negative_prompt": { "type": "string" },
+          "referensi": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["foto_user_1", "foto_user_2", "foto_user_3", "foto_user_4", "hasil:anchor"] }
+          },
+          "rasio": { "type": "string", "enum": ["1:1", "2:3", "4:5"] },
+          "risiko": { "type": "string" }
+        }
+      }
+    },
+    "qc_checklist": { "type": "array", "items": { "type": "string" } },
+    "asumsi": { "type": "array", "items": { "type": "string" } }
+  }
+}

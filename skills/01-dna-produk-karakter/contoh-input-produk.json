@@ -1,0 +1,10 @@
+{
+  "jenis": "produk",
+  "nama": "Kopi Senja",
+  "deskripsi": "Kopi susu gula aren dalam botol kaca 250 ml, tutup hitam.",
+  "gaya_visual": "foto_realistis",
+  "engine": "nano_banana",
+  "jumlah_foto": 2,
+  "ukuran_asli_cm": { "tinggi": 18, "lebar": 6, "dalam": 6 },
+  "teks_label_manual": ""
+}
