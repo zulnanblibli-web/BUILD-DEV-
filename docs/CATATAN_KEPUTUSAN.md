@@ -20,6 +20,8 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 | 2026-10-15 | Konsistensi pakai pola bintang: anchor dulu, semua gambar lain merujuk anchor + foto user | Skill 01 |
 | 2026-10-15 | Platform tes skill: Gemini Canvas. Engine gambar utama untuk tes: GPT Image (jadi salah satu pilihan engine, bukan satu-satunya) | Arahan pemilik produk |
 | 2026-10-15 | Skill 01 v1.1.0: aturan per engine (GPT Image: kata photorealistic sekali, rasio hanya 1:1/2:3/3:2) + schema versi Gemini | Skill 01 |
+| 2026-10-18 | REA (`rea-agents` v6.7.0) dipakai sebagai alat analisa shipped artifact web. Skill + `.mcp.json` disimpan di repo agar tidak hilang saat container sesi cloud dihapus. Lihat `docs/REA_SETUP.md` | Arahan pemilik produk |
+| 2026-10-18 | Batas pemakaian REA: membaca & menganalisa kode web yang sudah terkirim ke browser untuk memahami pola implementasi — **bukan** menyalin utuh website pihak lain untuk diterbitkan sebagai milik nexamind | Arahan pemilik produk |
 
 ## Menunggu persetujuan
 
