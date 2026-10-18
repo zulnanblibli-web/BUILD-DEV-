@@ -22,6 +22,10 @@ Cek file ini sebelum menulis kode baru. Perbarui setiap fase selesai.
 | 2026-10-15 | Skill 01 v1.1.0: aturan per engine (GPT Image: kata photorealistic sekali, rasio hanya 1:1/2:3/3:2) + schema versi Gemini | Skill 01 |
 | 2026-10-18 | REA (`rea-agents` v6.7.0) dipakai sebagai alat analisa shipped artifact web. Skill + `.mcp.json` disimpan di repo agar tidak hilang saat container sesi cloud dihapus. Lihat `docs/REA_SETUP.md` | Arahan pemilik produk |
 | 2026-10-18 | Batas pemakaian REA: membaca & menganalisa kode web yang sudah terkirim ke browser untuk memahami pola implementasi — **bukan** menyalin utuh website pihak lain untuk diterbitkan sebagai milik nexamind | Arahan pemilik produk |
+| 2026-10-18 | Rencana membedah member area pihak lain (`munerslab-member-area.netlify.app`) **dibatalkan**: host ditolak network policy environment, dan custom GPT tidak mengirim instruksinya ke klien sehingga tidak ada artifact untuk dianalisa. Ganti jalur: bangun polanya sendiri | Arahan pemilik produk |
+| 2026-10-18 | Simpanan hasil generate dipisah dua lapis: `keluaran_skill` (dari AI, apa adanya) + `jejak` (dihitung kode). **Tidak dicampur** — AI tidak bisa menghitung hash dan tidak tahu seed, kalau diminta mengisi ia akan mengarang. `output.schema.json` tetap bersih sebagai kontrak AI | `skills/rekaman.schema.json` |
+| 2026-10-18 | Syarat hasil bisa diulang persis: `seed` per gambar + `engine.versi_model` + `input_sha256` & `foto_sha256` (dikanonkan RFC 8785 dulu) + `dna_lock_sha256`. Seed/versi yang tidak tersedia diisi `null` dengan alasan di `jejak.catatan`, **dilarang** diisi angka karangan | `skills/rekaman.schema.json` |
+| 2026-10-18 | Aturan `dna_lock` dilarang beda antar prompt ditegakkan oleh kode lewat `dna_lock_sha256`, bukan hanya oleh instruksi di SKILL.md. Pemeriksa: `skills/periksa-rekaman.py` (exit 1 kalau gagal, siap dipakai di CI) | `skills/periksa-rekaman.py` |
 
 ## Menunggu persetujuan
 

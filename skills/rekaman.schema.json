@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "nexamind/skills/rekaman",
+  "title": "Rekaman Hasil Generate (berlaku untuk semua skill)",
+  "description": "Satu baris simpanan untuk satu kali generate. Membungkus keluaran AI apa adanya, lalu menambahkan jejak yang dihitung oleh kode. Tujuannya: hasil yang sudah pas bisa diulang persis, dan pelanggaran aturan ketangkep otomatis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["skema_rekaman", "jejak", "keluaran_skill"],
+  "properties": {
+    "skema_rekaman": {
+      "description": "Versi bentuk rekaman ini, bukan versi skill.",
+      "type": "string",
+      "const": "1.0.0"
+    },
+
+    "jejak": {
+      "description": "WAJIB diisi oleh kode, bukan oleh AI. AI tidak bisa menghitung hash dan tidak tahu seed; kalau diminta mengisi, ia akan mengarang.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "skill",
+        "versi_skill",
+        "dibuat_pada",
+        "input_sha256",
+        "dna_lock_sha256",
+        "engine",
+        "gambar"
+      ],
+      "properties": {
+        "id": {
+          "description": "ID rekaman. UUID v4.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "skill": {
+          "description": "Nama folder skill yang dipakai, mis. 01-dna-produk-karakter.",
+          "type": "string",
+          "minLength": 1
+        },
+        "versi_skill": {
+          "description": "Disalin dari keluaran_skill.versi_skill. Disimpan terpisah supaya bisa di-query tanpa membongkar JSON keluaran.",
+          "type": "string",
+          "minLength": 1
+        },
+        "dibuat_pada": {
+          "description": "Waktu rekaman dibuat. ISO 8601 dengan zona waktu.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "input_sha256": {
+          "description": "SHA-256 dari input form setelah dikanonkan (RFC 8785 JCS), huruf kecil. Dipakai untuk menemukan generate yang inputnya sama persis. Kanonkan dulu, kalau tidak urutan kunci yang berbeda menghasilkan hash berbeda untuk input yang sama.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "foto_sha256": {
+          "description": "SHA-256 setiap foto yang diupload, urut sesuai foto_user_1..4. Foto ikut menentukan hasil, jadi input_sha256 saja tidak cukup untuk mengulang.",
+          "type": "array",
+          "maxItems": 4,
+          "items": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "default": []
+        },
+        "dna_lock_sha256": {
+          "description": "SHA-256 dari string dna_lock apa adanya (UTF-8, tanpa trim). Penegak aturan 'dna_lock dilarang beda antar prompt': hitung ulang dari setiap prompt terkirim dan bandingkan. Beda = tolak, jangan generate.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+
+        "engine": {
+          "description": "Engine yang BENAR-BENAR dipakai, bukan yang diminta di input. Keduanya bisa berbeda kalau ada fallback.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["nama", "versi_model", "diminta"],
+          "properties": {
+            "nama": {
+              "type": "string",
+              "enum": ["nano_banana", "gpt_image", "seedream", "flux_kontext"]
+            },
+            "versi_model": {
+              "description": "Identitas model persis dari provider, mis. gpt-image-1-2025-04-15. Wajib: engine di-update tanpa pemberitahuan, prompt dan seed yang sama bisa beda hasil kalau versinya geser. null hanya jika provider benar-benar tidak mengembalikannya — catat di catatan.",
+              "type": ["string", "null"]
+            },
+            "diminta": {
+              "description": "Nilai engine dari input form. Kalau tidak sama dengan nama, berarti terjadi fallback.",
+              "type": "string",
+              "enum": ["nano_banana", "gpt_image", "seedream", "flux_kontext"]
+            }
+          }
+        },
+
+        "gambar": {
+          "description": "Satu entri per prompt di keluaran_skill.prompts, dicocokkan lewat prompt_id. Urutan mengikuti urutan generate.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["prompt_id", "status", "seed", "percobaan", "aset"],
+            "properties": {
+              "prompt_id": {
+                "description": "Sama dengan prompts[].id di keluaran skill.",
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "type": "string",
+                "enum": ["lolos_qc", "gagal_qc", "perlu_cek_manual", "gagal_generate"]
+              },
+              "seed": {
+                "description": "Seed yang dipakai engine. INI YANG BIKIN HASIL BISA DIULANG. null hanya jika engine tidak mengembalikan seed sama sekali — catat keterbatasan itu di catatan, jangan diisi angka karangan.",
+                "type": ["integer", "null"]
+              },
+              "percobaan": {
+                "description": "Berapa kali prompt ini dijalankan. 1 = sekali jadi. Maksimal 3 sesuai aturan ulang di SKILL.md (1 awal + 2 ulang).",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              },
+              "aset": {
+                "description": "Gambar hasil. null jika status gagal_generate.",
+                "type": ["object", "null"],
+                "additionalProperties": false,
+                "required": ["url", "sha256", "lebar_px", "tinggi_px"],
+                "properties": {
+                  "url": {
+                    "description": "Lokasi simpan, mis. di Cloudflare R2.",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sha256": {
+                    "description": "Hash berkas gambar. Membuktikan aset yang dirujuk belakangan masih berkas yang sama.",
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "lebar_px": { "type": "integer", "exclusiveMinimum": 0 },
+                  "tinggi_px": { "type": "integer", "exclusiveMinimum": 0 }
+                }
+              },
+              "catatan_qc": {
+                "description": "Butir qc_checklist yang gagal, jika status bukan lolos_qc.",
+                "type": "array",
+                "items": { "type": "string" },
+                "default": []
+              }
+            }
+          }
+        },
+
+        "profil_dna_id": {
+          "description": "Diisi hanya oleh skill 01, setelah anchor lolos QC. ID profil DNA yang bisa dirujuk skill lain lewat pintasan \"Pakai DNA\". null berarti profil belum terbentuk.",
+          "type": ["string", "null"],
+          "default": null
+        },
+        "catatan": {
+          "description": "Keterbatasan yang nyata terjadi, mis. engine tidak mengembalikan seed, atau versi model tidak tersedia. Bukan tempat menebak.",
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      }
+    },
+
+    "keluaran_skill": {
+      "description": "Keluaran AI APA ADANYA, tanpa diedit, dirapikan, atau ditambahi. Harus valid terhadap output.schema.json milik skill yang bersangkutan. Jangan gabungkan jejak ke dalam objek ini: begitu dicampur, tidak ada lagi cara memastikan mana yang dari AI dan mana yang dari kode.",
+      "type": "object"
+    }
+  }
+}
